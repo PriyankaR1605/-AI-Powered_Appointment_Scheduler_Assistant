@@ -67,16 +67,21 @@ def _heuristic_entity_extraction(raw_text: str) -> ExtractionResponse:
             break
 
     # 2. Time phrase matching (regex)
-    time_pattern = r"(\b\d{1,2}(?::\d{2})?\s*(?:am|pm)\b|\b(?:at\s+)?\d{1,2}\s*(?:am|pm)\b|\b\d{1,2}:\d{2}\b)"
+    time_pattern = r"(\b(?:at\s+|@\s*)?\d{1,2}(?::\d{2})?\s*(?:am|pm)\b|\b\d{1,2}:\d{2}\b)"
     time_match = re.search(time_pattern, text_lower)
-    detected_time = time_match.group(1).replace("at ", "").strip() if time_match else None
+    if time_match:
+        detected_time = time_match.group(1).replace("at ", "").replace("@", "").strip()
+    else:
+        detected_time = None
 
     # 3. Date phrase matching
     date_patterns = [
-        r"\b(?:next|this|coming)\s+(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b",
+        r"\b(?:next|this|coming|on)?\s*(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b",
         r"\b(?:tomorrow|today|day after tomorrow)\b",
-        r"\b\d{1,2}(?:st|nd|rd|th)?\s+(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\b",
-        r"\b(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\s+\d{1,2}(?:st|nd|rd|th)?\b",
+        r"\b\d{1,2}(?:st|nd|rd|th)?\s+(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*(?:\s+\d{4})?\b",
+        r"\b(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\s+\d{1,2}(?:st|nd|rd|th)?(?:\s+\d{4})?\b",
+        r"\b\d{4}-\d{2}-\d{2}\b",
+        r"\b\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b",
     ]
     detected_date = None
     for pattern in date_patterns:
@@ -87,7 +92,7 @@ def _heuristic_entity_extraction(raw_text: str) -> ExtractionResponse:
 
     # Calculate confidence based on extracted entities
     found_count = sum(1 for item in [detected_dept, detected_date, detected_time] if item)
-    confidence = 0.85 if found_count == 3 else (0.50 if found_count == 2 else 0.20)
+    confidence = 0.90 if found_count == 3 else (0.50 if found_count == 2 else 0.20)
 
     return ExtractionResponse(
         entities=Entities(

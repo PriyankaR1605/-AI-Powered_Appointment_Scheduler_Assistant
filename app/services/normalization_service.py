@@ -83,21 +83,27 @@ def _heuristic_normalization(date_phrase: Optional[str], time_phrase: Optional[s
             normalized_date = (now + timedelta(days=1)).strftime("%Y-%m-%d")
         elif "day after tomorrow" in dp:
             normalized_date = (now + timedelta(days=2)).strftime("%Y-%m-%d")
-        elif "next" in dp:
-            # e.g., "next friday"
+        else:
+            # Check for weekday (e.g. "friday", "next friday", "coming monday", etc.)
             weekdays = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
             for idx, day_name in enumerate(weekdays):
                 if day_name in dp:
                     current_weekday = now.weekday()
                     days_ahead = (idx - current_weekday) % 7
-                    if days_ahead <= 0:  # next means strictly upcoming
+                    if days_ahead <= 0:  # strictly upcoming day
                         days_ahead += 7
                     normalized_date = (now + timedelta(days=days_ahead)).strftime("%Y-%m-%d")
                     break
+            
+            # Check for ISO date format YYYY-MM-DD
+            if not normalized_date:
+                iso_match = re.search(r"\b(\d{4})-(\d{2})-(\d{2})\b", dp)
+                if iso_match:
+                    normalized_date = f"{iso_match.group(1)}-{iso_match.group(2)}-{iso_match.group(3)}"
 
     # 2. Normalize Time
     if time_phrase:
-        tp = time_phrase.lower().strip().replace("at ", "")
+        tp = time_phrase.lower().strip().replace("at ", "").replace("@", "").strip()
         match_12h = re.search(r"(\d{1,2})(?::(\d{2}))?\s*(am|pm)", tp)
         match_24h = re.search(r"(\d{1,2}):(\d{2})", tp)
         

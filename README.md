@@ -9,10 +9,12 @@ Developed for **Problem Statement 1: AI-Powered Appointment Scheduler Assistant*
 ## 🎥 Short Screen Recording & Demo
 
 [![Watch Demo Screen Recording](https://img.shields.io/badge/Demo_Video-Google_Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)](https://drive.google.com/file/d/1CwxCDsAQtVqYujW71KKleDxlJwmC9tpU/view?usp=sharing)
+[![Live Swagger Docs](https://img.shields.io/badge/Live_API-Swagger_Docs-46a2f7?style=for-the-badge&logo=fastapi&logoColor=white)](https://ai-powered-appointment-scheduler-ym8x.onrender.com/docs)
 
-📺 **Screen Recording Link**: [Click here to watch the demo video on Google Drive](https://drive.google.com/file/d/1CwxCDsAQtVqYujW71KKleDxlJwmC9tpU/view?usp=sharing)
+- 📺 **Screen Recording Link**: [Click here to watch the demo video on Google Drive](https://drive.google.com/file/d/1CwxCDsAQtVqYujW71KKleDxlJwmC9tpU/view?usp=sharing)
+- 🌐 **Live Cloud Demo (Swagger UI)**: [https://ai-powered-appointment-scheduler-ym8x.onrender.com/docs](https://ai-powered-appointment-scheduler-ym8x.onrender.com/docs)
 
-*The video demonstrates the 4-step pipeline in action: Health check, Natural language text scheduling, Image OCR note processing, Guardrail/Clarification handling for ambiguous inputs, and automated test execution.*
+*The video and live service demonstrate the 4-step pipeline in action: Health check, Natural language text scheduling, Image OCR note processing, Guardrail/Clarification handling for ambiguous inputs, and automated test execution.*
 
 ---
 
@@ -471,10 +473,16 @@ A ready-to-import Postman collection is included: [`postman_collection.json`](fi
 
 ---
 
-## 🌐 Public Demo & Tunneling (ngrok)
+## 🌐 Public Demo & Deployment (Render / ngrok)
 
-To share or evaluate the live API remotely:
+### 1. 24/7 Live Cloud API (Render)
+- 🌐 **Live Swagger UI Documentation**: [https://ai-powered-appointment-scheduler-ym8x.onrender.com/docs](https://ai-powered-appointment-scheduler-ym8x.onrender.com/docs)
+- 🏥 **Health Check Endpoint**: [https://ai-powered-appointment-scheduler-ym8x.onrender.com/health](https://ai-powered-appointment-scheduler-ym8x.onrender.com/health)
 
+---
+
+### 2. Local Tunneling (ngrok)
+To run and expose the API locally:
 ```bash
 # Start your local server
 uvicorn app.main:app --port 8000
@@ -483,7 +491,7 @@ uvicorn app.main:app --port 8000
 ngrok http 8000
 ```
 
-Use the generated public URL (e.g., `https://xxxx-xx-xx.ngrok-free.app/docs`) to access the interactive Swagger documentation and test live requests.
+Use the generated public URL (e.g., `https://xxxx-xx-xx.ngrok-free.app/docs`) to access the interactive Swagger documentation.
 
 ---
 

@@ -1,0 +1,170 @@
+{
+  "info": {
+    "_postman_id": "b8a8b1ef-520e-436f-b258-94f479a83d47",
+    "name": "AI Appointment Scheduler Assistant",
+    "description": "Collection for testing Problem Statement 1: AI-Powered Appointment Scheduler Assistant pipeline endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Schedule Appointment (Text)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"Book dentist next Friday at 3pm\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/appointment/schedule/text",
+          "host": ["{{base_url}}"],
+          "path": ["appointment", "schedule", "text"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Schedule Appointment (Image OCR)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "sample_data/appointment_note.png"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/appointment/schedule/image",
+          "host": ["{{base_url}}"],
+          "path": ["appointment", "schedule", "image"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Schedule Appointment (Ambiguous - Guardrail Test)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"Book me an appointment tomorrow\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/appointment/schedule/text",
+          "host": ["{{base_url}}"],
+          "path": ["appointment", "schedule", "text"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Debug Step 1: Text OCR",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "text",
+              "value": "Book dentist next Friday at 3pm",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/debug/step1-ocr",
+          "host": ["{{base_url}}"],
+          "path": ["debug", "step1-ocr"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Debug Step 2: Entity Extraction",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "raw_text",
+              "value": "book dentist nxt Friday @ 3 pm",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/debug/step2-extract",
+          "host": ["{{base_url}}"],
+          "path": ["debug", "step2-extract"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Debug Step 3: Normalization",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "date_phrase",
+              "value": "next Friday",
+              "type": "text"
+            },
+            {
+              "key": "time_phrase",
+              "value": "3pm",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/debug/step3-normalize",
+          "host": ["{{base_url}}"],
+          "path": ["debug", "step3-normalize"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    }
+  ]
+}

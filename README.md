@@ -6,24 +6,35 @@ Developed for **Problem Statement 1: AI-Powered Appointment Scheduler Assistant*
 
 ---
 
+## 🎥 Short Screen Recording & Demo
+
+[![Watch Demo Screen Recording](https://img.shields.io/badge/Demo_Video-Google_Drive-4285F4?style=for-the-badge&logo=googledrive&logoColor=white)](https://drive.google.com/file/d/1CwxCDsAQtVqYujW71KKleDxlJwmC9tpU/view?usp=sharing)
+
+📺 **Screen Recording Link**: [Click here to watch the demo video on Google Drive](https://drive.google.com/file/d/1CwxCDsAQtVqYujW71KKleDxlJwmC9tpU/view?usp=sharing)
+
+*The video demonstrates the 4-step pipeline in action: Health check, Natural language text scheduling, Image OCR note processing, Guardrail/Clarification handling for ambiguous inputs, and automated test execution.*
+
+---
+
 ## 📑 Table of Contents
-1. [Overview & Key Features](#-overview--key-features)
-2. [Architecture & 4-Step Pipeline](#-architecture--4-step-pipeline)
-3. [Project Directory Structure](#-project-directory-structure)
-4. [Tech Stack](#-tech-stack)
-5. [Prerequisites & Installation](#-prerequisites--installation)
-6. [Environment Configuration](#-environment-configuration)
-7. [Running the Application](#-running-the-application)
-8. [API Endpoints & Usage Examples](#-api-endpoints--usage-examples)
+1. [Screen Recording & Demo](#-short-screen-recording--demo)
+2. [Overview & Key Features](#-overview--key-features)
+3. [Architecture & 4-Step Pipeline](#-architecture--4-step-pipeline)
+4. [Project Directory Structure](#-project-directory-structure)
+5. [Tech Stack](#-tech-stack)
+6. [Prerequisites & Installation](#-prerequisites--installation)
+7. [Environment Configuration](#-environment-configuration)
+8. [Running the Application](#-running-the-application)
+9. [API Endpoints & Usage Examples](#-api-endpoints--usage-examples)
    - [1. Schedule Appointment via Text](#1-schedule-appointment-via-text-happy-path)
    - [2. Schedule Appointment via Image OCR](#2-schedule-appointment-via-image-ocr)
    - [3. Guardrail Handling (Ambiguous / Missing Details)](#3-guardrail-handling-ambiguous--missing-details)
    - [4. Health Check Endpoint](#4-health-check-endpoint)
    - [5. Modular Debug Endpoints](#5-modular-debug-endpoints)
-9. [Testing Suite](#-testing-suite)
-10. [Postman Collection](#-postman-collection)
-11. [Public Demo & Tunneling (ngrok)](#-public-demo--tunneling-ngrok)
-12. [Design Decisions & Reliability](#-design-decisions--reliability)
+10. [Testing Suite](#-testing-suite)
+11. [Postman Collection](#-postman-collection)
+12. [Public Demo & Tunneling (ngrok)](#-public-demo--tunneling-ngrok)
+13. [Design Decisions & Reliability](#-design-decisions--reliability)
 
 ---
 

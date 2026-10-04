@@ -110,16 +110,16 @@ def extract_entities(raw_text: str) -> ExtractionResponse:
             entities_confidence=0.0
         )
 
-    api_key = settings.GEMINI_API_KEY
+    api_key = (settings.GEMINI_API_KEY or "").strip()
     if not api_key or not GENAI_AVAILABLE:
         logger.info("Using heuristic entity extraction fallback (GEMINI_API_KEY not configured).")
         return _heuristic_entity_extraction(cleaned_text)
 
     try:
         genai.configure(api_key=api_key)
-        # Use gemini-1.5-flash for speed and structured outputs
+        # Use gemini-3.8-flash (or gemini-flash-latest) for fast structured outputs
         model = genai.GenerativeModel(
-            model_name="gemini-1.5-flash",
+            model_name="gemini-3.8-flash",
             system_instruction=EXTRACTION_SYSTEM_PROMPT,
             generation_config={"response_mime_type": "application/json"}
         )

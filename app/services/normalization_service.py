@@ -142,7 +142,7 @@ def normalize_datetime(
             normalization_confidence=0.0
         )
 
-    api_key = settings.GEMINI_API_KEY
+    api_key = (settings.GEMINI_API_KEY or "").strip()
     if not api_key or not GENAI_AVAILABLE:
         logger.info("Using heuristic normalization fallback (GEMINI_API_KEY not configured).")
         return _heuristic_normalization(date_phrase, time_phrase)
@@ -152,7 +152,7 @@ def normalize_datetime(
     try:
         genai.configure(api_key=api_key)
         model = genai.GenerativeModel(
-            model_name="gemini-1.5-flash",
+            model_name="gemini-3.8-flash",
             system_instruction=NORMALIZATION_SYSTEM_PROMPT,
             generation_config={"response_mime_type": "application/json"}
         )
